@@ -197,6 +197,34 @@ def test_unknown_models_invalid_inputs_and_corrupted_bundle(fixture_root):
         ModelBundle(path.parent)
 
 
+def test_experiment_listing_excludes_other_manifest_formats(fixture_root):
+    root, _ = fixture_root
+    results = root / "results"
+    experiment = results / "valid-run"
+    experiment.mkdir()
+    (experiment / "manifest.json").write_text(
+        json.dumps(
+            {
+                "run_id": "valid-run",
+                "family": "mlp",
+                "config": {"seed": 42, "window_length": 30},
+                "metrics": {"validation": {"rmse_cycles": 12.0}},
+            }
+        )
+    )
+    manual = results / "manual-ae"
+    manual.mkdir()
+    (manual / "manifest.json").write_text(
+        json.dumps({"family": "numpy_dense_autoencoder", "seed": 42})
+    )
+    with TestClient(create_app(root)) as client:
+        assert [item["run_id"] for item in client.get("/api/v1/experiments").json()["items"]] == [
+            "valid-run"
+        ]
+        assert client.get("/api/v1/experiments/valid-run").status_code == 200
+        assert client.get("/api/v1/experiments/manual-ae").status_code == 404
+
+
 def test_rules_boundaries_persistence_clearing_and_gap():
     rules = DemoRules()
     assert rules.apply(20, 1, None)[0] == "critical_warning"

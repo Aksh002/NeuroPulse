@@ -30,9 +30,12 @@ test('real FD001 replay warms up, predicts, pauses, resumes and resets', async (
   await page.getByRole('link',{name:'Models'}).focus();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('heading',{name:'Neural model comparison'})).toBeVisible();
+  await expect.poll(async()=>page.getByRole('row').count()).toBeGreaterThan(1);
   await page.getByRole('link',{name:'Experiments'}).click();
   await expect(page.getByRole('heading',{name:'Experiment results'})).toBeVisible();
-  await expect(page.getByRole('table')).toBeVisible();
+  await expect.poll(async()=>page.getByRole('row').count()).toBeGreaterThan(1);
+  await page.getByRole('button',{name:'Details'}).first().click();
+  await expect(page.getByRole('heading',{name:'Resolved hyperparameters'})).toBeVisible();
 });
 
 test('an unavailable API produces an explicit error', async ({page}) => {

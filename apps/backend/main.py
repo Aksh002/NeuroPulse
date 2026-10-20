@@ -375,16 +375,32 @@ def create_app(root: Path = ROOT) -> FastAPI:
 
     @app.get("/api/v1/experiments")
     def experiments():
-        return {
-            "items": [json.loads(p.read_text()) for p in sorted(results.glob("*/manifest.json"))]
-        }
+        items = []
+        for path in sorted(results.glob("*/manifest.json")):
+            document = json.loads(path.read_text())
+            if (
+                isinstance(document, dict)
+                and document.get("run_id") == path.parent.name
+                and isinstance(document.get("config"), dict)
+                and isinstance(document.get("metrics"), dict)
+            ):
+                items.append(document)
+        return {"items": items}
 
     @app.get("/api/v1/experiments/{run_id}")
     def experiment(run_id: str):
         directory = results / identifier(run_id)
-        if not (directory / "manifest.json").exists():
+        path = directory / "manifest.json"
+        if not path.exists():
             raise HTTPException(404, "Unknown experiment")
-        document = json.loads((directory / "manifest.json").read_text())
+        document = json.loads(path.read_text())
+        if (
+            not isinstance(document, dict)
+            or document.get("run_id") != run_id
+            or not isinstance(document.get("config"), dict)
+            or not isinstance(document.get("metrics"), dict)
+        ):
+            raise HTTPException(404, "Unknown experiment")
         for name in ("history.csv", "predictions.csv"):
             path = directory / name
             if path.exists():
