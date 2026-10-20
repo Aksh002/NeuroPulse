@@ -1,0 +1,42 @@
+# Local environments, package outputs, tooling caches
+.venv/
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+
+# Dataset provenance/split summaries belong in docs, bulk data stays local.
+/data/raw/
+/data/processed/
+/data/manifests/
+/artifacts/
+/results/
+*.pt
+*.pth
+*.npz
+*.joblib
+
+# Local settings and secrets
+.env
+.env.*
+!.env.example
+
+# Future application build outputs
+node_modules/
+.next/
+*.tsbuildinfo
+playwright-report/
+test-results/
+
+# Editor/OS files
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store

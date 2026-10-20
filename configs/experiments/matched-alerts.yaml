@@ -1,0 +1,10 @@
+schema_version: '1.0'
+population: FD001 held-out training engines
+calibration_engines: first 10 sorted validation IDs
+evaluation_engines: last 10 sorted validation IDs
+target_warning_cycle_fraction: 0.10
+quantile_grid_points: 201
+anomaly_persistence_cycles: 3
+comparison: any warning state; severity not compared
+model_selection: results/deployment.json
+interpretation: exploratory post-official-test; model selected using all 20 validation engines

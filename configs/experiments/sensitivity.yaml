@@ -1,0 +1,31 @@
+# Fixed before viewing official test metrics. Seed42 sensitivity results are exploratory
+# controlled validation comparisons; the architecture suite supplies three-seed variability.
+name: sensitivity-v1
+jobs:
+  - {family: mlp, window_length: 10}
+  - {family: mlp, window_length: 50}
+  - {family: mlp, window_length: 100}
+  - {family: lstm, window_length: 10}
+  - {family: lstm, window_length: 50}
+  - {family: lstm, window_length: 100}
+  - {family: mlp, hidden_layers: 1}
+  - {family: mlp, hidden_layers: 3}
+  - {family: mlp, dense_width: 32}
+  - {family: mlp, dense_width: 64}
+  - {family: mlp, dense_width: 256}
+  - {family: mlp, activation: tanh}
+  - {family: mlp, initialization: xavier}
+  - {family: mlp, rul_cap_cycles: 100}
+  - {family: mlp, rul_cap_cycles: 150}
+  - {family: mlp, rul_cap_cycles: null}
+  - {family: lstm, rul_cap_cycles: 100}
+  - {family: lstm, rul_cap_cycles: 150}
+  - {family: lstm, rul_cap_cycles: null}
+  - {family: mlp, optimizer: sgd, learning_rate: 0.001}
+  - {family: mlp, optimizer: sgd, learning_rate: 0.01}
+  - {family: mlp, optimizer: sgd, learning_rate: 0.05}
+  - {family: mlp, optimizer: momentum, learning_rate: 0.001}
+  - {family: mlp, optimizer: momentum, learning_rate: 0.01}
+  - {family: mlp, optimizer: momentum, learning_rate: 0.05}
+  - {family: mlp, learning_rate: 0.0003}
+  - {family: mlp, learning_rate: 0.003}

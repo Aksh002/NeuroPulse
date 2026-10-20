@@ -1,0 +1,12 @@
+# Frozen starting protocol. All quantities are cycles, not hours.
+schema_version: "1.0"
+dataset: cmapss
+subset: FD001
+train_fraction: 0.8
+split_seed: 42
+validation_prefix_seed: 142
+window_length: 30
+stride: 1
+rul_cap_cycles: 125
+sensor_variance_threshold: 1.0e-8
+scaler_std_floor: 1.0e-12

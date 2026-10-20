@@ -1,0 +1,5 @@
+critical: 20.0
+maintenance: 50.0
+combined: 80.0
+persistence: 3
+version: demo-v1

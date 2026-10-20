@@ -1,0 +1,14 @@
+.git
+.venv
+.cache
+data
+artifacts
+results
+dist
+build
+__pycache__
+.pytest_cache
+.mypy_cache
+.ruff_cache
+apps/frontend/node_modules
+apps/frontend/.next

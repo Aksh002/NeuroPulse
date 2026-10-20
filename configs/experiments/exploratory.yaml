@@ -1,0 +1,9 @@
+schema_version: '1.0'
+population: FD001 held-out training engines
+model_selection: results/deployment.json
+noise_seed: 2026
+standardized_noise_sigma: [0.05, 0.10]
+decision_threshold_source: configs/maintenance.yaml
+anomaly_threshold_source: selected autoencoder bundle
+decision_comparison: unmatched demonstration thresholds
+interpretation: exploratory validation-only; no official-test retuning

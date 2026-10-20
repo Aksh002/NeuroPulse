@@ -1,0 +1,7 @@
+schema_version: '1.0'
+population: FD001 held-out training engines
+model_selection: results/deployment.json
+early_proxy: complete windows ending by cycle 50 with at least 125 cycles remaining
+late_proxy: complete windows in last 50 cycles before failure
+quantiles: [0.95, 0.99, 0.995]
+interpretation: proxy score sensitivity; no verified fault-onset or independent calibration claim

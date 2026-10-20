@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    environment:
+      NEUROPULSE_DATA_DIR: /workspace/data
+      NEUROPULSE_ARTIFACT_DIR: /workspace/artifacts/models
+      NEUROPULSE_RESULTS_DIR: /workspace/results
+      NEUROPULSE_FRONTEND_ORIGIN: http://localhost:3000
+    volumes:
+      - ./data/raw:/workspace/data/raw:ro
+      - ./data/processed:/workspace/data/processed:ro
+      - ./artifacts/models:/workspace/artifacts/models:ro
+      - ./results:/workspace/results
+    ports:
+      - "127.0.0.1:8000:8000"
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:3000:3000"

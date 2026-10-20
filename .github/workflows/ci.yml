@@ -1,0 +1,51 @@
+name: NeuroPulse checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: CPU checks / Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.4"
+          python-version: ${{ matrix.python-version }}
+      - name: Install locked research, backend and development dependencies
+        run: uv sync --locked --extra research --extra backend --python ${{ matrix.python-version }}
+      - name: Lint
+        run: uv run --no-sync ruff check .
+      - name: Type check
+        run: uv run --no-sync mypy src/neuropulse
+      - name: Synthetic correctness checks
+        run: uv run --no-sync pytest
+      - name: Validate the committed protocol
+        run: uv run --no-sync python -m neuropulse --config configs/data/fd001.yaml
+  frontend:
+    name: Dashboard checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/frontend
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/frontend/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
