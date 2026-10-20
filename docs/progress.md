@@ -12,7 +12,7 @@ Updated: 2026-10-20. This file records implementation evidence, not expected out
 | 6–7: advanced/anomaly | Mandatory/recommended gates complete locally | Custom Conv1D gradients/parity, basic RNN toy fit, real FD001 manual dense AE and three PyTorch AE proxy runs; manual LSTM optional |
 | 8: evaluation | RQ1–5 complete with stated evidence limits; RQ6 bounded | 24-run architecture and 27-run sensitivity suites frozen before official terminal evaluation; nine post-test history runs, proxy AE thresholds, matched-budget policy study and bounded noise labeled exploratory |
 | 9–11: inference/API/dashboard | Local browser demonstration working | Versioned bundles, rules, five frontend views; real Edge replay and disconnected-server tests, TypeScript/Vitest/production build |
-| 12–13: integration/report | Local integration and measured report; container gate open | Offline/API equality, synthetic E2E, real browser replay, generated report and clean-commit reproduction check; Docker daemon unavailable |
+| 12–13: integration/report | Local and Compose integration; measured report | Offline/API equality, synthetic E2E, local and container browser replay, generated report and clean-commit reproduction check; hosted CI pending |
 
 ## Current evidence and open gates
 
@@ -50,13 +50,17 @@ Updated: 2026-10-20. This file records implementation evidence, not expected out
 - Microsoft Edge headless browser tests passed against live local FastAPI and
   Next servers: real replay, prediction after warm-up, pause/resume/reset,
   model/experiment navigation, and explicit disconnected-API error state.
+- Docker Compose backend/frontend images built successfully. With both
+  containers running, the API readiness endpoint returned the selected LSTM
+  and AE versions, the dashboard returned HTTP 200, and both Edge browser
+  replay tests passed against the containers on 2026-10-20. The browser run
+  reused running services; it did not start local development servers.
 - Python tests (71), Ruff, mypy (45 source files), frontend type checks,
   Vitest, two live Edge browser tests, and Next production build pass locally.
   Frontend npm audit reports zero vulnerabilities after the Vitest update.
-  Docker CLI exists but its engine was unavailable; container behavior has not
-  been checked. Hosted CI has not run because no remote is configured.
-- Remaining full-scope work: complete local container validation. The original
-  suite's source was unversioned; a separate committed-source rerun is exact,
+  Hosted CI has not run because no remote is configured.
+- Remaining evidence limit: the original suite's source was unversioned; a
+  separate committed-source rerun is exact,
   but cannot retroactively identify the original source. Independently labeled
   anomaly metrics require a suitable dataset and are not claimed.
   FD002–FD004 and custom LSTM remain outside the current core gate.
@@ -103,5 +107,5 @@ as a record of the stage transition; current open work is listed above.
 
 No mandatory manual action is required for the local application. Optionally select
 the project's `.venv\Scripts\python.exe` in the IDE. Start Docker Desktop if you
-want the container workflow validated. A deadline or GPU/cloud requirement would
+want to run the validated container workflow. A deadline or GPU/cloud requirement would
 change later experimental priorities; CPU-first remains confirmed.

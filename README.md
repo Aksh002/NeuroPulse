@@ -90,11 +90,10 @@ warm-up state before a complete window exists. Evaluation truth has a separate
 opt-in route. Rules are research demonstrations, not validated maintenance
 policies. See the [demonstration walkthrough](docs/demo.md) and
 [manual neural derivations](docs/research/derivations.md). Sessions live in one
-backend process. Container operation has not
-been validated because the Docker engine was unavailable locally.
+backend process. The same replay checks passed against the Compose deployment.
 
 With Microsoft Edge installed, run `npm run test:e2e` from `apps/frontend`.
-The test starts and stops both local servers, then checks real replay,
+The test uses running servers, or starts and stops local servers, then checks real replay,
 pause/resume/reset, keyboard activation, result views, and
 the disconnected-server error state. Set `NEUROPULSE_BROWSER_PATH` to another
 Chromium executable when needed. The test needs local data and selected bundles;
@@ -104,8 +103,10 @@ The container configuration is in `compose.yaml`. With Docker Desktop running
 and the local benchmark, prepared manifest, deployment selection, and model
 bundles present, use `docker compose up --build`. Raw and prepared data and
 model bundles are mounted read-only; replay logs use the writable `results`
-mount. `docker compose config --quiet` passed locally, but an image build and
-container replay still need an available Docker engine.
+mount. `docker compose build`, `docker compose up -d`, API readiness, dashboard
+HTTP 200, and both browser replay tests passed locally on 2026-10-20. Run
+`docker compose down` when finished. This requires the ignored local data and
+model bundles; hosted deployment has not been tested.
 
 ## Stages
 
@@ -116,7 +117,7 @@ container replay still need an available Docker engine.
 | 2 | Provenance-preserving acquisition, reader, splits, targets, scaling and windows | FD001 implemented and measured |
 | 3 | Checked NumPy neural engine | Dense core, Conv1D and basic RNN validated |
 | 4–8 | Baselines, temporal models and controlled experiments | Frozen three-seed architecture and single-seed sensitivity suites; broader studies open |
-| 9–13 | Inference/rules, API, dashboard, integration and presentation | Local replay and dashboard implemented; container and full research gates open |
+| 9–13 | Inference/rules, API, dashboard, integration and presentation | Local and Compose replay pass; original-suite traceability and hosted CI open |
 
 Follow dependency gates in AGENTS.md, not merely numeric order. Phase 6/7 advanced work does
 not block the MVP. No dataset-derived metric may be reported before the corresponding run.
@@ -137,6 +138,6 @@ not establish redistribution rights; usage terms remain unresolved.
 ## What you need to do
 
 No mandatory manual action is needed for the local demonstration. Optionally
-select `.venv\Scripts\python.exe` in your IDE. Start Docker Desktop only if
-you want the unverified container workflow tested. GitHub CI will run after
+select `.venv\Scripts\python.exe` in your IDE. Start Docker Desktop only when
+you want to run the verified container workflow. GitHub CI will run after
 the repository is connected and pushed; local Git initialization does not publish it.

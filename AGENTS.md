@@ -2,7 +2,7 @@
 
 **Project title:** Neural Predictive Maintenance System: An Experimental Framework for Machine Degradation Modeling, Anomaly Detection, and Remaining Useful Life Prediction.
 
-**Blueprint version:** 1.0 · **Prepared:** 2026-10-13 · **Status update:** 2026-10-20. FD001 core research and local replay are implemented; full-scope ablations and container verification remain open. See [implementation progress](docs/progress.md) for evidence.
+**Blueprint version:** 1.0 · **Prepared:** 2026-10-13 · **Status update:** 2026-10-20. FD001 core research, local replay, and the container demonstration are implemented; source traceability of the original unversioned research suite and hosted CI remain open. See [implementation progress](docs/progress.md) for evidence.
 
 This root document is the source of truth for implementation. Its intended readers are coding agents, ML engineers, academic reviewers, and maintainers. The original blueprint deliverable was this document only; on 2026-10-13 the user authorized staged scaffolding. Proposed paths, commands, and interfaces below remain specifications unless the progress log records implementation and validation evidence. Do not interpret staged authorization as a request to execute every milestone at once.
 
@@ -609,7 +609,7 @@ Effort estimates are focused engineering days for one experienced engineer, not 
 - **Mathematics / algorithms:** Keep metrics in ML library; session stepping/order/idempotency and alert transitions.
 - **Tests / validation:** HTTP contracts/status codes, missing artifacts/readiness, unknown model/engine, concurrent stepping, history isolation, truth endpoint segregation, prediction logging.
 - **Deliverables / acceptance:** OpenAPI examples and working local routes with one worker; errors and warm-up distinguished. **Failure modes:** training inside requests, unbounded history, arbitrary paths, multiworker in-memory inconsistency.
-- [x] API contracts, session lifecycle, and readiness tests pass locally; hosted/container checks remain open.
+- [x] API contracts, session lifecycle, and readiness tests pass locally and in the Compose demonstration; hosted CI remains open.
 
 ### Phase 11 — Frontend Dashboard
 
@@ -629,7 +629,7 @@ Effort estimates are focused engineering days for one experienced engineer, not 
 - **Mathematics / algorithms:** Offline versus API prediction equality, prefix invariance, truth separation, measured resource use.
 - **Tests / validation:** Fresh local CPU setup, read-only artifact mounts, deterministic replay, reset/repeat history, phase-appropriate UI tests, no future-data dependence.
 - **Deliverables / acceptance:** End-to-end demo with real local artifacts; CI uses deterministic tiny synthetic bundles, not raw datasets. **Failure modes:** missing artifacts mistaken for ready, Compose paths tied to one developer, duplicate alerts/cycles.
-- [ ] Local and container demonstration verified with limitations recorded.
+- [x] Local and container demonstration verified with limitations recorded.
 
 ### Phase 13 — Documentation and Research Presentation
 
@@ -915,9 +915,9 @@ These gates complement the detailed phase checklists. Current statuses distingui
 | Anomaly (P7) | Validated dense AE, healthy-proxy evidence, threshold bundle, qualified metrics | Complete at proxy evidence level; verified onset labels unavailable |
 | Research (P8) | Three-seed core suite and frozen final test; full studies separately reported with intervals/negative results | Complete with post-test exploratory studies labeled |
 | Inference (P9) | Offline/bundle parity, compatible versions, deterministic rules, warm-up/error handling | Complete locally |
-| API (P10) | Contract/readiness/logging/replay tests and separate ground-truth path | Complete locally; hosted/container checks open |
+| API (P10) | Contract/readiness/logging/replay tests and separate ground-truth path | Complete locally; Compose readiness and browser replay pass; hosted CI open |
 | UI (P11) | Minimal replay integration; full views separately checked; units/null/error states correct | Real Edge replay, navigation and disconnected-server tests pass; broader accessibility audit open |
-| Integration (P12) | Prefix-invariant repeatable local/container demonstration and synthetic E2E | Local real API parity and synthetic E2E pass; Docker engine unavailable |
+| Integration (P12) | Prefix-invariant repeatable local/container demonstration and synthetic E2E | Local API parity and synthetic E2E pass; Compose images build, API/dashboard respond, and two browser replay tests pass against containers |
 | Presentation (P13) | Reproduction guide, derivations, source-traceable tables, limitations and scope status | Complete; original runs remain unversioned, separate clean-commit reruns agree exactly |
 
 Do not mark an optional item complete because it was omitted by design; label `Not pursued` with its rationale. If a methodology or artifact bug invalidates evidence, reopen affected gates and identify downstream results that require regeneration.
@@ -949,4 +949,4 @@ Do not mark an optional item complete because it was omitted by design; label `N
 - [x] Five dashboard views and combined maintenance-rule evaluation are complete at local browser/proxy evidence level.
 - [ ] Full reproducibility/test evidence and research presentation are available; stretch omissions are explicit.
 
-**Next unblocked implementation task:** run the container demonstration when a Docker engine is available; browser replay and keyboard activation checks already pass. Preserve the existing frozen/test separation. The original suite was unversioned, while a separate committed-source configuration reproduced exactly in two runs; all new studies after official evaluation are exploratory.
+**Next unblocked implementation task:** expand the remaining research only under a new, versioned protocol, or run hosted CI after configuring a remote. Preserve the existing frozen/test separation. The original suite was unversioned, while a separate committed-source configuration reproduced exactly in two runs; all new studies after official evaluation are exploratory.
