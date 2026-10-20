@@ -7,7 +7,9 @@ baselines and PyTorch models, reproducible experiment artifacts, and a historica
 replay application. [AGENTS.md](AGENTS.md) is the implementation blueprint;
 [stage progress](docs/progress.md) records completed and open gates. See the
 [measured FD001 results](docs/research/results.md) for the frozen three-seed
-architecture comparison and its limitations.
+architecture comparison and its limitations. The
+[source-revision check](docs/research/reproducibility.md) records a separate
+two-run reproduction from a clean local commit.
 
 ## Local setup
 

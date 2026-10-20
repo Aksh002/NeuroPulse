@@ -347,7 +347,8 @@ def render(results: Path = Path("results")) -> str:
         "terms are documented in [the dataset audit](../data/dataset-audit.md). "
         "See [the protocol](protocol.md) for target and split policy. The initial local "
         "runs were made from an unversioned, uncommitted working tree; exact source "
-        "revision reproduction cannot yet be claimed.",
+        "revision reproduction cannot be claimed for them. A later clean-commit "
+        "two-run check is documented in [reproducibility](reproducibility.md).",
         "",
     ]
     return "\n".join(lines)

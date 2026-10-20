@@ -918,7 +918,7 @@ These gates complement the detailed phase checklists. Current statuses distingui
 | API (P10) | Contract/readiness/logging/replay tests and separate ground-truth path | Complete locally; hosted/container checks open |
 | UI (P11) | Minimal replay integration; full views separately checked; units/null/error states correct | Real Edge replay, navigation and disconnected-server tests pass; broader accessibility audit open |
 | Integration (P12) | Prefix-invariant repeatable local/container demonstration and synthetic E2E | Local real API parity and synthetic E2E pass; Docker engine unavailable |
-| Presentation (P13) | Reproduction guide, derivations, source-traceable tables, limitations and scope status | Complete with unversioned-source limitation documented |
+| Presentation (P13) | Reproduction guide, derivations, source-traceable tables, limitations and scope status | Complete; original runs remain unversioned, separate clean-commit reruns agree exactly |
 
 Do not mark an optional item complete because it was omitted by design; label `Not pursued` with its rationale. If a methodology or artifact bug invalidates evidence, reopen affected gates and identify downstream results that require regeneration.
 
@@ -949,4 +949,4 @@ Do not mark an optional item complete because it was omitted by design; label `N
 - [x] Five dashboard views and combined maintenance-rule evaluation are complete at local browser/proxy evidence level.
 - [ ] Full reproducibility/test evidence and research presentation are available; stretch omissions are explicit.
 
-**Next unblocked implementation task:** complete a keyboard/accessibility pass on the five browser views, then run the container demonstration when a Docker engine is available and reproduce the research suite from a committed source revision. Preserve the existing frozen/test separation; all new studies after official evaluation are exploratory.
+**Next unblocked implementation task:** run the container demonstration when a Docker engine is available; browser replay and keyboard activation checks already pass. Preserve the existing frozen/test separation. The original suite was unversioned, while a separate committed-source configuration reproduced exactly in two runs; all new studies after official evaluation are exploratory.

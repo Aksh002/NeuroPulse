@@ -103,9 +103,10 @@ def run(
     )
     json_write(output / "validation_prefixes.json", validation_endpoints)
     try:
-        revision = subprocess.run(
-            ["git", "rev-parse", "HEAD"], capture_output=True, text=True
-        ).stdout.strip()
+        revision_result = subprocess.run(
+            ["git", "rev-parse", "--verify", "HEAD"], capture_output=True, text=True
+        )
+        revision = revision_result.stdout.strip() if revision_result.returncode == 0 else ""
         dirty = bool(
             subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True).stdout
         )

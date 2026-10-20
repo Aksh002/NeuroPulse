@@ -12,7 +12,7 @@ Updated: 2026-10-20. This file records implementation evidence, not expected out
 | 6–7: advanced/anomaly | Mandatory/recommended gates complete locally | Custom Conv1D gradients/parity, basic RNN toy fit, real FD001 manual dense AE and three PyTorch AE proxy runs; manual LSTM optional |
 | 8: evaluation | RQ1–5 complete with stated evidence limits; RQ6 bounded | 24-run architecture and 27-run sensitivity suites frozen before official terminal evaluation; nine post-test history runs, proxy AE thresholds, matched-budget policy study and bounded noise labeled exploratory |
 | 9–11: inference/API/dashboard | Local browser demonstration working | Versioned bundles, rules, five frontend views; real Edge replay and disconnected-server tests, TypeScript/Vitest/production build |
-| 12–13: integration/report | Local integration and measured report; container/source-revision gates open | Offline/API equality, synthetic E2E, real browser replay, generated report and reproduction guide; Docker daemon unavailable |
+| 12–13: integration/report | Local integration and measured report; container gate open | Offline/API equality, synthetic E2E, real browser replay, generated report and clean-commit reproduction check; Docker daemon unavailable |
 
 ## Current evidence and open gates
 
@@ -37,6 +37,12 @@ Updated: 2026-10-20. This file records implementation evidence, not expected out
   scored 332 held-out proxy windows; validation reconstruction MSE was 0.2506
   and q99 threshold was 0.4689. The checkpoint loaded successfully. This is
   separate from the deployed PyTorch AE and does not validate fault detection.
+- Local commit `5da1db4` fixed a source revision for a new reproduction check.
+  Two clean-revision reruns of the frozen seed-42 PyTorch MLP configuration
+  produced identical checkpoint SHA-256 and validation RMSE 17.1339206883.
+  The original unversioned run was close (17.1572099338) but not byte-identical;
+  its exact original source cannot be reconstructed. See
+  [reproducibility](research/reproducibility.md). No official test score was changed.
 - The application selection is validation-best `lstm-fd001-v1-1dda9d2d`
   (seed 44) plus compatible AE `autoencoder-fd001-v1-a37904e3`. A real 30-cycle
   API replay returned finite RUL and anomaly outputs, and an automated local test
@@ -49,8 +55,9 @@ Updated: 2026-10-20. This file records implementation evidence, not expected out
   Frontend npm audit reports zero vulnerabilities after the Vitest update.
   Docker CLI exists but its engine was unavailable; container behavior has not
   been checked. Hosted CI has not run because no remote is configured.
-- Remaining full-scope work: complete local container validation and
-  reproduction from a committed source revision. Independently labeled
+- Remaining full-scope work: complete local container validation. The original
+  suite's source was unversioned; a separate committed-source rerun is exact,
+  but cannot retroactively identify the original source. Independently labeled
   anomaly metrics require a suitable dataset and are not claimed.
   FD002–FD004 and custom LSTM remain outside the current core gate.
 
